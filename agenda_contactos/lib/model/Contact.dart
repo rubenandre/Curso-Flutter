@@ -7,24 +7,26 @@ class Contact {
   String phone;
   String img;
 
+  Contact();
+
   Contact.fromMap(Map map) {
-    this.id = map[ContactColumns.idColumn.toString()];
-    this.name = map[ContactColumns.nameColumn.toString()];
-    this.email = map[ContactColumns.emailColumn.toString()];
-    this.phone = map[ContactColumns.phoneColumn.toString()];
-    this.img = map[ContactColumns.imgColumn.toString()];
+    this.id = map[ContactColumns.idColumn];
+    this.name = map[ContactColumns.nameColumn];
+    this.email = map[ContactColumns.emailColumn];
+    this.phone = map[ContactColumns.phoneColumn];
+    this.img = map[ContactColumns.imgColumn];
   }
 
   Map toMap() {
     Map<String, dynamic> map = {
-      ContactColumns.nameColumn.toString(): name,
-      ContactColumns.emailColumn.toString(): email,
-      ContactColumns.phoneColumn.toString(): phone,
-      ContactColumns.imgColumn.toString(): img,
+      ContactColumns.nameColumn: name,
+      ContactColumns.emailColumn: email,
+      ContactColumns.phoneColumn: phone,
+      ContactColumns.imgColumn: img,
     };
 
     if (id != null) {
-      map[ContactColumns.idColumn.toString()] = id;
+      map[ContactColumns.idColumn] = id;
     }
 
     return map;

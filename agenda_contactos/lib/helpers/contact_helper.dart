@@ -26,15 +26,15 @@ class ContactHelper {
 
   Future<Database> initDB() async {
     final databasesPath = await getDatabasesPath();
-    final path = join(databasesPath, "contacts.db");
+    final path = join(databasesPath, "contactsruben.db");
     return await openDatabase(path, version: 1, onCreate: (Database db, int newerVersion) async {
       await db.execute(
         "CREATE TABLE $table("
-            "$ContactColumns.idColumn INTEGER PRIMARY KEY, "
-            "$ContactColumns.nameColumn TEXT, "
-            "$ContactColumns.emailColumn TEXT, "
-            "$ContactColumns.phoneColumn TEXT, "
-            "$ContactColumns.imgColumn TEXT)"
+            "${ContactColumns.idColumn} INTEGER PRIMARY KEY, "
+            "${ContactColumns.nameColumn} TEXT, "
+            "${ContactColumns.emailColumn} TEXT, "
+            "${ContactColumns.phoneColumn} TEXT, "
+            "${ContactColumns.imgColumn} TEXT)"
       );
     });
   }
@@ -51,8 +51,8 @@ class ContactHelper {
   Future<Contact> getContact(int id) async {
     Database dbContact = await db;
     List<Map> maps = await dbContact.query(table,
-      columns: [ContactColumns.idColumn.toString(), ContactColumns.nameColumn.toString(), ContactColumns.emailColumn.toString(), ContactColumns.phoneColumn.toString(), ContactColumns.imgColumn.toString()],
-      where: "$ContactColumns.idColumn = ?",
+      columns: [ContactColumns.idColumn, ContactColumns.nameColumn, ContactColumns.emailColumn, ContactColumns.phoneColumn, ContactColumns.imgColumn],
+      where: "${ContactColumns.idColumn} = ?",
       whereArgs: [id]);
     if (maps.length > 0) {
       return Contact.fromMap(maps.first);
@@ -63,7 +63,7 @@ class ContactHelper {
   Future<bool> deleteContact (int id) async {
     Database dbContact = await db;
     int res = await dbContact.delete(table,
-        where: "$ContactColumns.idColumn = ?",
+        where: "${ContactColumns.idColumn} = ?",
         whereArgs: [id]);
     return res == 0 ? false : true;
   }
@@ -72,7 +72,7 @@ class ContactHelper {
     Database dbContact = await db;
     int res = await dbContact.update(table,
         contact.toMap(),
-        where: "$ContactColumns.idColumn = ?",
+        where: "${ContactColumns.idColumn} = ?",
         whereArgs: [contact.id]);
     return res == 0 ? false : true;
   }
